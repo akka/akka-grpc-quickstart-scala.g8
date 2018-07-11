@@ -18,3 +18,10 @@ be tested without binding it to a HTTP server.
 
 @@snip [GreeterServiceImplSpec.scala]($g8srctest$/scala/com/example/helloworld/GreeterServiceImplSpec.scala) { #full-example }
 
+### Add streaming tests
+
+As an exercise to increase your understanding you could add tests for the @ref[streaming call](streaming.md), both as
+integration test and unit test style.
+
+The Akka documentation of [Testing streams](https://doc.akka.io/docs/akka/current/stream/stream-testkit.html) might
+be useful.

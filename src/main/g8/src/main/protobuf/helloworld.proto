@@ -1,3 +1,4 @@
+//#service-request-reply
 syntax = "proto3";
 
 option java_multiple_files = true;
@@ -8,6 +9,15 @@ option java_outer_classname = "HelloWorldProto";
 service GreeterService {
     // Sends a greeting
     rpc SayHello (HelloRequest) returns (HelloReply) {}
+
+    //#service-request-reply
+    //#service-stream
+    // The stream of incoming HelloRequest messages are
+    // sent out as corresponding HelloReply. From
+    // all clients to all clients, like a chat room.
+    rpc SayHelloToAll (stream HelloRequest) returns (stream HelloReply) {}
+    //#service-stream
+    //#service-request-reply
 
 }
 
@@ -20,3 +30,4 @@ message HelloRequest {
 message HelloReply {
     string message = 1;
 }
+//#service-request-reply

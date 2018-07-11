@@ -73,7 +73,7 @@ handles gRPC requests in the HTTP server that is bound to port 8080 in this exam
 `GreeterServiceImpl` is our implementation of the gRPC service, but first we must define the interface of the service
 in the protobuf file `src/main/protobuf/helloworld.proto`:
 
-@@snip [helloworld.proto]($g8src$/protobuf/helloworld.proto) { }
+@@snip [helloworld.proto]($g8src$/protobuf/helloworld.proto) { #service-request-reply }
 
 When compiling the project several things are generated from the proto definition. You can find the generated files in `target/scala-2.12/src_managed/main/com/example/helloworld` if you are curious.
 
@@ -85,7 +85,7 @@ For the server the following classes are generated:
 
 The part that we have to implement on the server side is the `GreeterServiceImpl` which implements the generated `GreeterService` interface. It is this implementation that is bound to the `HTTP` server via the `GreeterServiceHandler` and it looks like this:
 
-@@snip [GreeterServiceImpl.scala]($g8src$/scala/com/example/helloworld/GreeterServiceImpl.scala) { #import #service-impl }
+@@snip [GreeterServiceImpl.scala]($g8src$/scala/com/example/helloworld/GreeterServiceImpl.scala) { #import #service-request-reply }
 
 ### Client
 
@@ -103,12 +103,29 @@ On the client side we don't have to implement anything, the `GreeterServiceClien
 
 We need an `ActorSystem` and then the `GreeterServiceClient` can be created and used like this:
 
-@@snip [GreeterClient.scala]($g8src$/scala/com/example/helloworld/GreeterClient.scala) { #import #client }
+@@snip [GreeterClient.scala]($g8src$/scala/com/example/helloworld/GreeterClient.scala) { #import #client-request-reply }
 
 Note that clients and servers don't have to be implemented with Akka gRPC. They can be implemented/used with other libraries or languages and interoperate according to the gRPC specification.
 
+### Other types of calls
+
+In this first example we saw a gRPC service call for single request returning a `Future` reply.
+The parameter and return type of the calls may also be streams in 3 different combinations:
+
+* **client streaming call** - `Source` (stream) of requests from the client that returns a
+  @scala[`Future`]@java[`CompletionStage`] with a single response,
+  see `itKeepsTalking` in above example
+* **server streaming call** - single request that returns a `Source` (stream) of responses,
+  see `itKeepsReplying` in above example
+* **client and server streaming call** - `Source` (stream) of requests from the client that returns a
+  `Source` (stream) of responses,
+  see `streamHellos` in above example
+
+As next step, let's try the @ref[bidirectional streaming calls](streaming.md).
+
 @@@index
 
+* [Streaming gRPC](streaming.md)
 * [Testing gRPC](testing.md)
 
 @@@
