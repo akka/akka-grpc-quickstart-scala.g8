@@ -11,67 +11,67 @@ To run Hello World including the streaming calls:
  
     sbt builds the project and runs the gRPC server
 
-This starts the server in the same way as in the first example we ran previously. The output should include something like:
+    This starts the server in the same way as in the first example we ran previously. The output should include something like:
  
-```
-[info] gRPC server bound to: /127.0.0.1:8080
-```
+    ```
+    [info] gRPC server bound to: /127.0.0.1:8080
+    ```
 
 1. Open another console window and start `sbt`. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient Alice`.
  
     sbt runs the gRPC client for Alice
 
-Note that the difference from the first example is the additional argument `Alice`. The output should include something like:
- 
-```
-[info] Performing request: Alice
-[info] Performing streaming requests: Alice
-[info] HelloReply(Hello, Alice)
-[info] Alice got streaming reply: Hello, Alice-0
-[info] Alice got streaming reply: Hello, Alice-1
-[info] Alice got streaming reply: Hello, Alice-2
-[info] Alice got streaming reply: Hello, Alice-3
-```
+    Note that the difference from the first example is the additional argument `Alice`. The output should include something like:
 
-The "Performing request: Alice" and "HelloReply(Hello, Alice)" comes from the single request response call in the
-previous example and the "streaming" are new.
+    ```
+    [info] Performing request: Alice
+    [info] Performing streaming requests: Alice
+    [info] HelloReply(Hello, Alice)
+    [info] Alice got streaming reply: Hello, Alice-0
+    [info] Alice got streaming reply: Hello, Alice-1
+    [info] Alice got streaming reply: Hello, Alice-2
+    [info] Alice got streaming reply: Hello, Alice-3
+    ```
+
+    The "Performing request: Alice" and "HelloReply(Hello, Alice)" comes from the single request response call in the
+    previous example and the "streaming" are new.
 
 1. Open yet another console window and start `sbt`. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient Bob`.
  
     sbt runs the gRPC client for Bob
 
-Note that the difference is the argument `Bob`. The output should include something like:
- 
-```
-[info] Performing request: Bob
-[info] Performing streaming requests: Bob
-[info] HelloReply(Hello, Bob)
-[info] Bob got streaming reply: Hello, Bob-0
-[info] Bob got streaming reply: Hello, Alice-38
-[info] Bob got streaming reply: Hello, Bob-1
-[info] Bob got streaming reply: Hello, Alice-39
-[info] Bob got streaming reply: Hello, Bob-2
-[info] Bob got streaming reply: Hello, Alice-40
-[info] Bob got streaming reply: Hello, Bob-3
-```
+    Note that the difference is the argument `Bob`. The output should include something like:
 
-Note how the messages from Alice are also received by Bob.
+    ```
+    [info] Performing request: Bob
+    [info] Performing streaming requests: Bob
+    [info] HelloReply(Hello, Bob)
+    [info] Bob got streaming reply: Hello, Bob-0
+    [info] Bob got streaming reply: Hello, Alice-38
+    [info] Bob got streaming reply: Hello, Bob-1
+    [info] Bob got streaming reply: Hello, Alice-39
+    [info] Bob got streaming reply: Hello, Bob-2
+    [info] Bob got streaming reply: Hello, Alice-40
+    [info] Bob got streaming reply: Hello, Bob-3
+    ```
+
+    Note how the messages from Alice are also received by Bob.
 
 
 1. Switch back to the console window with the Alice client. The output should include something like:
 
-```
-[info] Alice got streaming reply: Hello, Bob-10
-[info] Alice got streaming reply: Hello, Alice-48
-[info] Alice got streaming reply: Hello, Bob-11
-[info] Alice got streaming reply: Hello, Alice-49
-[info] Alice got streaming reply: Hello, Bob-12
-[info] Alice got streaming reply: Hello, Alice-50
-[info] Alice got streaming reply: Hello, Bob-13
-```
+    ```
+    [info] Alice got streaming reply: Hello, Bob-10
+    [info] Alice got streaming reply: Hello, Alice-48
+    [info] Alice got streaming reply: Hello, Bob-11
+    [info] Alice got streaming reply: Hello, Alice-49
+    [info] Alice got streaming reply: Hello, Bob-12
+    [info] Alice got streaming reply: Hello, Alice-50
+    [info] Alice got streaming reply: Hello, Bob-13
+    ```
 
-Note how messages from both Alice and Bob are received in both clients. The streaming request messages are broadcasted
-to all connected clients via the server.
+    Note how messages from both Alice and Bob are received in both clients. The streaming request messages are broadcasted
+    to all connected clients via the server.
 
 Now take a look at how this is implemented.
 

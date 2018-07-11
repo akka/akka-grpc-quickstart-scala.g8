@@ -36,24 +36,24 @@ To run Hello World:
  
     sbt builds the project and runs the gRPC server
 
-The output should include something like:
- 
-```
-[info] gRPC server bound to: /127.0.0.1:8080
-```
+    The output should include something like:
+
+    ```
+    [info] gRPC server bound to: /127.0.0.1:8080
+    ```
 
 1. Open another console window and start `sbt` in the same way as above. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient`.
  
     sbt runs the gRPC client
 
-The output should include something like:
- 
-```
-[info] Performing request: Alice
-[info] Performing request: Bob
-[info] HelloReply(Hello, Bob)
-[info] HelloReply(Hello, Alice)
-```
+    The output should include something like:
+
+    ```
+    [info] Performing request: Alice
+    [info] Performing request: Bob
+    [info] HelloReply(Hello, Bob)
+    [info] HelloReply(Hello, Alice)
+    ```
    
 Congratulations, you just ran your first Akka gRPC server and client. Now take a look at what happened under the covers.
 
@@ -90,7 +90,7 @@ The part that we have to implement on the server side is the `GreeterServiceImpl
 ### Client
 
 In this example we have the client in the same project as the server. That is common for testing purposes but for real usage
-you or another team would have another project (another service) that is using the client and doesn't implement the
+you or another team would have a separate project (different service) that is using the client and doesn't implement the
 server side of the service. Between such projects you would only share the proto file (by copying it).
 
 From the same proto file that was used on the server side classes are generated for the client:
