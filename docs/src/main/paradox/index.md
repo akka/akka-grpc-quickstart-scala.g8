@@ -12,16 +12,47 @@ Download and unzip the example:
 
 1. Download the zip file from [Lightbend Tech Hub](https://developer.lightbend.com/start/?group=akka&project=akka-grpc-quickstart-scala) by clicking `CREATE A PROJECT FOR ME`. 
 1. Extract the zip file to a convenient location: 
-  - On Linux and OSX systems, open a terminal and use the command `unzip akka-grpc-quickstart-scala.zip`. Note: On OSX, if you unzip using Archiver, you also have to make the sbt files executable:
-```
- $ chmod u+x ./sbt
- $ chmod u+x ./sbt-dist/bin/sbt
-```
+  - On Linux and OSX systems, open a terminal and use the command `unzip akka-grpc-quickstart-scala.zip`. Note: On OSX, if you unzip using Archiver, you also have to make the build files executable:
+
+sbt
+:   ```
+    $ chmod u+x ./sbt
+    $ chmod u+x ./sbt-dist/bin/sbt
+    ```
+    
+Maven
+:   ```
+    ```
+
+Gradle
+:   ```
+    $ chmod u+x ./gradlew
+    ```
+
   - On Windows, use a tool such as File Explorer to extract the project. 
 
 ## Running the example
 
-To run Hello World:
+Select your preferred build tool:
+
+sbt
+:   ```
+    Instructions for sbt below...
+    ```
+
+Maven
+:   ```
+    Instructions for Maven below...
+    ```
+
+Gradle
+:   ```
+    Instructions for Gradle below...
+    ```
+
+@@@ div { .group-sbt }
+
+To run Hello World with sbt:
 
 1. In a console, change directories to the top level of the unzipped project.
  
@@ -54,7 +85,89 @@ To run Hello World:
     [info] HelloReply(Hello, Bob)
     [info] HelloReply(Hello, Alice)
     ```
-   
+
+@@@
+
+@@@ div { .group-maven }
+
+To run Hello World with Maven:
+
+1. In a console, change directories to the top level of the unzipped project.
+ 
+    For example, if you used the default project name, akka-grpc-quickstart-scala, and extracted the project to your root directory,
+    from the root directory, enter: `cd akka-grpc-quickstart-scala`
+
+1. Enter `mvn compile` to compile the project.
+ 
+    Maven downloads project dependencies, generates gRPC classes from protobuf, and compiles.
+
+1. Enter `mvn compile dependency:properties exec:exec@server`.
+ 
+    Maven runs the `com.example.helloworld.GreeterServer` main class that starts the gRPC server.
+    The `exec:exec@server` execution is defined in the Maven `pom.xml` build definition.
+
+    The output should include something like:
+
+    ```
+    gRPC server bound to: /127.0.0.1:8080
+    ```
+
+1. Open another console window and enter `mvn compile dependency:properties exec:exec@client`.
+ 
+    Maven runs the `com.example.helloworld.GreeterClient` main class that starts the gRPC client.
+    The `exec:exec@client` execution is defined in the Maven `pom.xml` build definition.
+
+    The output should include something like:
+
+    ```
+    Performing request: Alice
+    Performing request: Bob
+    HelloReply(Hello, Bob)
+    HelloReply(Hello, Alice)
+    ```
+
+@@@
+
+@@@ div { .group-gradle }
+
+To run Hello World with Gradle:
+
+1. In a console, change directories to the top level of the unzipped project.
+ 
+    For example, if you used the default project name, akka-grpc-quickstart-scala, and extracted the project to your root directory,
+    from the root directory, enter: `cd akka-grpc-quickstart-scala`
+
+1. Enter `./gradlew compile` to compile the project.
+ 
+    Maven downloads project dependencies, generates gRPC classes from protobuf, and compiles.
+
+1. Enter `./gradlew runServer`.
+ 
+    Gradle runs the `com.example.helloworld.GreeterServer` main class that starts the gRPC server.
+    The `runServer` task is defined in `build.gradle`.
+
+    The output should include something like:
+
+    ```
+    gRPC server bound to: /127.0.0.1:8080
+    ```
+
+1. Open another console window and enter `./gradlew runClient`.
+ 
+    Gradle runs the `com.example.helloworld.GreeterClient` main class that starts the gRPC client.
+    The `runClient` task is defined in `build.gradle`.
+
+    The output should include something like:
+
+    ```
+    Performing request: Alice
+    Performing request: Bob
+    HelloReply(Hello, Bob)
+    HelloReply(Hello, Alice)
+    ```
+    
+@@@
+
 Congratulations, you just ran your first Akka gRPC server and client. Now take a look at what happened under the covers.
 
 You can end the programs with `ctrl-c`.
