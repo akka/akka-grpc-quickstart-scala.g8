@@ -58,7 +58,7 @@ To run Hello World:
 
     Gradle
     :   ```
-        ./gradlew compile
+        ./gradlew compileScala
         ```
  
     @sbt[sbt]@maven[Maven]@gradle[Gradle] downloads project dependencies, generates gRPC classes from protobuf, and compiles.
@@ -141,7 +141,9 @@ in the protobuf file `src/main/protobuf/helloworld.proto`:
 
 @@snip [helloworld.proto]($g8src$/protobuf/helloworld.proto) { #service-request-reply }
 
-When compiling the project several things are generated from the proto definition. You can find the generated files in `target/scala-2.12/src_managed/main/com/example/helloworld` if you are curious.
+When compiling the project several things are generated from the proto definition. You can find the generated files in 
+@sbt[`target/scala-2.12/src_managed/main/`]@maven[`target/generated-sources/`]@gradle[`build/generated/source/proto/main/`]
+if you are curious.
 
 For the server the following classes are generated:
 
