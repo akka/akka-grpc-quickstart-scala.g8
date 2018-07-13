@@ -22,6 +22,7 @@ sbt
     
 Maven
 :   ```
+    Local installation of mvn is required.
     ```
 
 Gradle
@@ -33,78 +34,55 @@ Gradle
 
 ## Running the example
 
-Select your preferred build tool:
+To run Hello World:
 
-sbt
-:   ```
-    Instructions for sbt below...
-    ```
-
-Maven
-:   ```
-    Instructions for Maven below...
-    ```
-
-Gradle
-:   ```
-    Instructions for Gradle below...
-    ```
-
-@@@ div { .group-sbt }
-
-To run Hello World with sbt:
+@sbt[On OSX/Linux use `./sbt` to start sbt in the instructions below, on Windows `sbt.bat`.]
+@gradle[On OSX/Linux use `./gradlew` to start Gradle in the instructions below, on Windows `./gradlew.bat`.]
 
 1. In a console, change directories to the top level of the unzipped project.
  
     For example, if you used the default project name, akka-grpc-quickstart-scala, and extracted the project to your root directory,
     from the root directory, enter: `cd akka-grpc-quickstart-scala`
 
-1. Enter `./sbt` on OSX/Linux or `sbt.bat` on Windows to start sbt.
+1. Compile the project by entering:
+
+    sbt
+    :   ```
+        ./sbt compile
+        ```
+
+    Maven
+    :   ```
+        mvn compile
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew compile
+        ```
  
-    sbt downloads project dependencies. The `>` prompt indicates sbt has started in interactive mode.
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] downloads project dependencies, generates gRPC classes from protobuf, and compiles.
 
-1. At the sbt prompt, enter `runMain com.example.helloworld.GreeterServer`.
+1. Run the server:
+
+    sbt
+    :   ```
+        ./sbt "runMain com.example.helloworld.GreeterServer"
+        ```
+
+    Maven
+    :   ```
+        mvn compile dependency:properties exec:exec@server
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew runServer
+        ```
  
-    sbt builds the project and runs the gRPC server
-
-    The output should include something like:
-
-    ```
-    [info] gRPC server bound to: /127.0.0.1:8080
-    ```
-
-1. Open another console window and start `sbt` in the same way as above. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient`.
- 
-    sbt runs the gRPC client
-
-    The output should include something like:
-
-    ```
-    [info] Performing request: Alice
-    [info] Performing request: Bob
-    [info] HelloReply(Hello, Bob)
-    [info] HelloReply(Hello, Alice)
-    ```
-
-@@@
-
-@@@ div { .group-maven }
-
-To run Hello World with Maven:
-
-1. In a console, change directories to the top level of the unzipped project.
- 
-    For example, if you used the default project name, akka-grpc-quickstart-scala, and extracted the project to your root directory,
-    from the root directory, enter: `cd akka-grpc-quickstart-scala`
-
-1. Enter `mvn compile` to compile the project.
- 
-    Maven downloads project dependencies, generates gRPC classes from protobuf, and compiles.
-
-1. Enter `mvn compile dependency:properties exec:exec@server`.
- 
-    Maven runs the `com.example.helloworld.GreeterServer` main class that starts the gRPC server.
-    The `exec:exec@server` execution is defined in the Maven `pom.xml` build definition.
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] runs the `com.example.helloworld.GreeterServer` main class that starts the gRPC server.
+    @maven[The `exec:exec@server` execution is defined in the Maven `pom.xml` build definition.]
+    @gradle[The `runServer` task is defined in `build.gradle`.]
 
     The output should include something like:
 
@@ -112,10 +90,26 @@ To run Hello World with Maven:
     gRPC server bound to: /127.0.0.1:8080
     ```
 
-1. Open another console window and enter `mvn compile dependency:properties exec:exec@client`.
+1. Run the client, open another console window and enter:
+
+    sbt
+    :   ```
+        ./sbt "runMain com.example.helloworld.GreeterClient"
+        ```
+
+    Maven
+    :   ```
+        mvn compile dependency:properties exec:exec@client
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew runClient
+        ```
  
-    Maven runs the `com.example.helloworld.GreeterClient` main class that starts the gRPC client.
-    The `exec:exec@client` execution is defined in the Maven `pom.xml` build definition.
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] runs the `com.example.helloworld.GreeterClient` main class that starts the gRPC client.
+    @maven[The `exec:exec@client` execution is defined in the Maven `pom.xml` build definition.]
+    @gradle[The `runClient` task is defined in `build.gradle`.]
 
     The output should include something like:
 
@@ -126,47 +120,6 @@ To run Hello World with Maven:
     HelloReply(Hello, Alice)
     ```
 
-@@@
-
-@@@ div { .group-gradle }
-
-To run Hello World with Gradle:
-
-1. In a console, change directories to the top level of the unzipped project.
- 
-    For example, if you used the default project name, akka-grpc-quickstart-scala, and extracted the project to your root directory,
-    from the root directory, enter: `cd akka-grpc-quickstart-scala`
-
-1. Enter `./gradlew compile` to compile the project.
- 
-    Maven downloads project dependencies, generates gRPC classes from protobuf, and compiles.
-
-1. Enter `./gradlew runServer`.
- 
-    Gradle runs the `com.example.helloworld.GreeterServer` main class that starts the gRPC server.
-    The `runServer` task is defined in `build.gradle`.
-
-    The output should include something like:
-
-    ```
-    gRPC server bound to: /127.0.0.1:8080
-    ```
-
-1. Open another console window and enter `./gradlew runClient`.
- 
-    Gradle runs the `com.example.helloworld.GreeterClient` main class that starts the gRPC client.
-    The `runClient` task is defined in `build.gradle`.
-
-    The output should include something like:
-
-    ```
-    Performing request: Alice
-    Performing request: Bob
-    HelloReply(Hello, Bob)
-    HelloReply(Hello, Alice)
-    ```
-    
-@@@
 
 Congratulations, you just ran your first Akka gRPC server and client. Now take a look at what happened under the covers.
 
@@ -179,7 +132,7 @@ As you saw in the console output, the example outputs several greetings. Let’s
 ### Server
 
 First, the `GreeterServer` main class creates an `akka.actor.ActorSystem`, a container in which Actors, Akka Streams and Akka HTTP run. Next, it defines a function from `HttpRequest` to `Future[HttpResponse]` using the `GreeterServiceImpl`. This function
-handles gRPC requests in the HTTP server that is bound to port 8080 in this example.
+handles gRPC requests in the HTTP/2 with TLS server that is bound to port 8080 in this example.
 
 @@snip [GreeterServer.scala]($g8src$/scala/com/example/helloworld/GreeterServer.scala) { #import #server }
 

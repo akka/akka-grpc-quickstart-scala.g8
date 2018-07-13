@@ -5,102 +5,26 @@ a bidirectional streaming call. First we will run it and then look at how it's i
 
 ### Running the streaming call
 
-Select your preferred build tool if you haven't done that already:
-
-sbt
-:   ```
-    Instructions for sbt below...
-    ```
-
-Maven
-:   ```
-    Instructions for Maven below...
-    ```
-
-Gradle
-:   ```
-    Instructions for Gradle below...
-    ```
-
-@@@ div { .group-sbt }
-
 To run Hello World including the streaming calls:
 
-1. At the sbt prompt, enter `runMain com.example.helloworld.GreeterServer`.
+1. Run the server:
+
+    sbt
+    :   ```
+        ./sbt "runMain com.example.helloworld.GreeterServer"
+        ```
+
+    Maven
+    :   ```
+        mvn compile dependency:properties exec:exec@server
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew runServer
+        ```
  
-    sbt builds the project and runs the gRPC server
-
-    This starts the server in the same way as in the first example we ran previously. The output should include something like:
- 
-    ```
-    [info] gRPC server bound to: /127.0.0.1:8080
-    ```
-
-1. Open another console window and start `sbt`. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient Alice`.
- 
-    sbt runs the gRPC client for Alice
-
-    Note that the difference from the first example is the additional argument `Alice`. The output should include something like:
-
-    ```
-    [info] Performing request: Alice
-    [info] Performing streaming requests: Alice
-    [info] HelloReply(Hello, Alice)
-    [info] Alice got streaming reply: Hello, Alice-0
-    [info] Alice got streaming reply: Hello, Alice-1
-    [info] Alice got streaming reply: Hello, Alice-2
-    [info] Alice got streaming reply: Hello, Alice-3
-    ```
-
-    The "Performing request: Alice" and "HelloReply(Hello, Alice)" comes from the single request response call in the
-    previous example and the "streaming" are new.
-
-1. Open yet another console window and start `sbt`. At the sbt prompt, enter `runMain com.example.helloworld.GreeterClient Bob`.
- 
-    sbt runs the gRPC client for Bob
-
-    Note that the difference is the argument `Bob`. The output should include something like:
-
-    ```
-    [info] Performing request: Bob
-    [info] Performing streaming requests: Bob
-    [info] HelloReply(Hello, Bob)
-    [info] Bob got streaming reply: Hello, Bob-0
-    [info] Bob got streaming reply: Hello, Alice-38
-    [info] Bob got streaming reply: Hello, Bob-1
-    [info] Bob got streaming reply: Hello, Alice-39
-    [info] Bob got streaming reply: Hello, Bob-2
-    [info] Bob got streaming reply: Hello, Alice-40
-    [info] Bob got streaming reply: Hello, Bob-3
-    ```
-
-    Note how the messages from Alice are also received by Bob.
-
-
-1. Switch back to the console window with the Alice client. The output should include something like:
-
-    ```
-    [info] Alice got streaming reply: Hello, Bob-10
-    [info] Alice got streaming reply: Hello, Alice-48
-    [info] Alice got streaming reply: Hello, Bob-11
-    [info] Alice got streaming reply: Hello, Alice-49
-    [info] Alice got streaming reply: Hello, Bob-12
-    [info] Alice got streaming reply: Hello, Alice-50
-    [info] Alice got streaming reply: Hello, Bob-13
-    ```
-
-    Note how messages from both Alice and Bob are received in both clients. The streaming request messages are broadcasted
-    to all connected clients via the server.
-
-@@@
-
-@@@ div { .group-maven }
-
-To run Hello World including the streaming calls:
-
-1. Enter `mvn compile dependency:properties exec:exec@server`.
- 
-    Maven builds the project and runs the gRPC server
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] builds the project and runs the gRPC server
 
     This starts the server in the same way as in the first example we ran previously. The output should include something like:
  
@@ -108,11 +32,29 @@ To run Hello World including the streaming calls:
     gRPC server bound to: /127.0.0.1:8080
     ```
 
-1. Open another console window, enter `mvn -DGreeterClient.user=Alice compile dependency:properties exec:exec@client`.
- 
-    Maven runs the gRPC client for Alice
+1. Run the client, open another console window and enter:
 
-    Note that the difference from the first example is the additional argument `-DGreeterClient.user=Alice`. The output should include something like:
+    sbt
+    :   ```
+        ./sbt "runMain com.example.helloworld.GreeterClient Alice"
+        ```
+
+    Maven
+    :   ```
+        mvn -DGreeterClient.user=Alice compile dependency:properties exec:exec@client
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew runClient -PGreeterClient.user=Alice
+        ```
+
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] runs the gRPC client for Alice
+
+    Note that the difference from the first example is the additional argument
+    @sbt[`Alice`]@maven[`-DGreeterClient.user=Alice`]@gradle[`-PGreeterClient.user=Alice`].
+
+    The output should include something like:
 
     ```
     Performing request: Alice
@@ -127,9 +69,25 @@ To run Hello World including the streaming calls:
     The "Performing request: Alice" and "HelloReply(Hello, Alice)" comes from the single request response call in the
     previous example and the "streaming" are new.
 
-1. Open yet another console window and enter `mvn -DGreeterClient.user=Bob compile dependency:properties exec:exec@client`.
- 
-    Maven runs the gRPC client for Bob
+1. Open yet another console window and enter:
+
+    sbt
+    :   ```
+        ./sbt "runMain com.example.helloworld.GreeterClient Bob"
+        ```
+
+    Maven
+    :   ```
+        mvn -DGreeterClient.user=Bob compile dependency:properties exec:exec@client
+        ```
+
+    Gradle
+    :   ```
+        ./gradlew runClient -PGreeterClient.user=Bob
+        ```
+
+
+    @sbt[sbt]@maven[Maven]@gradle[Gradle] runs the gRPC client for Bob
 
     Note that the difference is the argument `Bob`. The output should include something like:
 
@@ -164,79 +122,6 @@ To run Hello World including the streaming calls:
     Note how messages from both Alice and Bob are received in both clients. The streaming request messages are broadcasted
     to all connected clients via the server.
 
-@@@
-
-@@@ div { .group-gradle }
-
-To run Hello World including the streaming calls:
-
-1. Enter `./gradlew runServer`.
- 
-    Maven builds the project and runs the gRPC server
-
-    This starts the server in the same way as in the first example we ran previously. The output should include something like:
- 
-    ```
-    gRPC server bound to: /127.0.0.1:8080
-    ```
-
-1. Open another console window, enter `./gradlew runClient -PGreeterClient.user=Alice`.
- 
-    Gradle runs the gRPC client for Alice
-
-    Note that the difference from the first example is the additional argument `-DGreeterClient.user=Alice`. The output should include something like:
-
-    ```
-    Performing request: Alice
-    Performing streaming requests: Alice
-    HelloReply(Hello, Alice)
-    Alice got streaming reply: Hello, Alice-0
-    Alice got streaming reply: Hello, Alice-1
-    Alice got streaming reply: Hello, Alice-2
-    Alice got streaming reply: Hello, Alice-3
-    ```
-
-    The "Performing request: Alice" and "HelloReply(Hello, Alice)" comes from the single request response call in the
-    previous example and the "streaming" are new.
-
-1. Open yet another console window and enter `./gradlew runClient -PGreeterClient.user=Bob`.
- 
-    Gradle runs the gRPC client for Bob
-
-    Note that the difference is the argument `Bob`. The output should include something like:
-
-    ```
-    Performing request: Bob
-    Performing streaming requests: Bob
-    HelloReply(Hello, Bob)
-    Bob got streaming reply: Hello, Bob-0
-    Bob got streaming reply: Hello, Alice-38
-    Bob got streaming reply: Hello, Bob-1
-    Bob got streaming reply: Hello, Alice-39
-    Bob got streaming reply: Hello, Bob-2
-    Bob got streaming reply: Hello, Alice-40
-    Bob got streaming reply: Hello, Bob-3
-    ```
-
-    Note how the messages from Alice are also received by Bob.
-
-
-1. Switch back to the console window with the Alice client. The output should include something like:
-
-    ```
-    Alice got streaming reply: Hello, Bob-10
-    Alice got streaming reply: Hello, Alice-48
-    Alice got streaming reply: Hello, Bob-11
-    Alice got streaming reply: Hello, Alice-49
-    Alice got streaming reply: Hello, Bob-12
-    Alice got streaming reply: Hello, Alice-50
-    Alice got streaming reply: Hello, Bob-13
-    ```
-
-    Note how messages from both Alice and Bob are received in both clients. The streaming request messages are broadcasted
-    to all connected clients via the server.
-
-@@@
 
 Now take a look at how this is implemented.
 

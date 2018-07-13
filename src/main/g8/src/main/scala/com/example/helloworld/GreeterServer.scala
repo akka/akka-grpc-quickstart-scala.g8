@@ -63,7 +63,7 @@ class GreeterServer(system: ActorSystem) {
   }
   //#server
 
-  // TODO this will be replaced by a more convenient utility
+  // FIXME this will be replaced by a more convenient utility, see https://github.com/akka/akka-grpc/issues/89
   private def serverHttpContext(): HttpsConnectionContext = {
     val keyEncoded = read(GreeterServer.getClass.getResourceAsStream("/certs/server1.key"))
       .replace("-----BEGIN PRIVATE KEY-----\n", "")
