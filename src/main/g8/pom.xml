@@ -11,8 +11,8 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <akka.version>2.5.13</akka.version>
-    <akka.grpc.version>0.1+64-3433908f</akka.grpc.version>
+    <akka.version>$akka_version$</akka.version>
+    <akka.grpc.version>$akka_grpc_version$</akka.grpc.version>
     <grpc.version>1.13.1</grpc.version>
     <project.encoding>UTF-8</project.encoding>
   </properties>
@@ -20,20 +20,20 @@
   <dependencies>
     <dependency>
       <groupId>com.lightbend.akka.grpc</groupId>
-      <artifactId>akka-grpc-runtime_2.12</artifactId>
-      <version>${akka.grpc.version}</version>
+      <artifactId>akka-grpc-runtime_$scala_major_version$</artifactId>
+      <version>\${akka.grpc.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-stream-testkit_2.12</artifactId>
-      <version>${akka.version}</version>
+      <artifactId>akka-stream-testkit_$scala_major_version$</artifactId>
+      <version>\${akka.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.12</artifactId>
+      <artifactId>scalatest_$scala_major_version$</artifactId>
       <version>3.0.5</version>
       <scope>test</scope>
     </dependency>
@@ -42,7 +42,7 @@
     <dependency>
       <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
-      <version>${grpc.version}</version>
+      <version>\${grpc.version}</version>
     </dependency>
 
     <dependency>
@@ -72,10 +72,9 @@
       <plugin>
         <groupId>com.lightbend.akka.grpc</groupId>
         <artifactId>akka-grpc-maven-plugin</artifactId>
-        <version>${akka.grpc.version}</version>
+        <version>\${akka.grpc.version}</version>
         <configuration>
           <language>Scala</language>
-          <protoPath>src/main/protobuf</protoPath>
         </configuration>
         <executions>
           <execution>
@@ -95,16 +94,17 @@
           <skipTests>true</skipTests>
         </configuration>
       </plugin>
+
       <!-- enable scalatest -->
       <plugin>
         <groupId>org.scalatest</groupId>
         <artifactId>scalatest-maven-plugin</artifactId>
         <version>1.0</version>
         <configuration>
-          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          <reportsDirectory>\${project.build.directory}/surefire-reports</reportsDirectory>
           <junitxml>.</junitxml>
           <filereports>TestSuite.txt</filereports>
-          <argLine>-javaagent:${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argLine>
+          <argLine>-javaagent:\${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argLine>
         </configuration>
         <executions>
           <execution>
@@ -144,7 +144,7 @@
             <configuration>
               <executable>java</executable>
               <arguments>
-                <argument>-javaagent:${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argument>
+                <argument>-javaagent:\${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argument>
                 <argument>-classpath</argument>
                 <classpath />
                 <argument>com.example.helloworld.GreeterServer</argument>
@@ -162,7 +162,7 @@
                 <argument>-classpath</argument>
                 <classpath />
                 <argument>com.example.helloworld.GreeterClient</argument>
-                <argument>${GreeterClient.user}</argument>
+                <argument>\${GreeterClient.user}</argument>
               </arguments>
             </configuration>
           </execution>

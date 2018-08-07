@@ -38,8 +38,8 @@ configurations {
 
 dependencies {
 
-  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:2.5.13'
-  testImplementation 'org.scalatest:scalatest_2.12:3.0.5'
+  testImplementation 'com.typesafe.akka:akka-stream-testkit_$scala_major_version$:$akka_version$'
+  testImplementation 'org.scalatest:scalatest_$scala_major_version$:3.0.5'
   testRuntime 'org.pegdown:pegdown:1.1.0'
 
   // Configuration for modules that use Jetty ALPN agent
