@@ -23,10 +23,7 @@ object GreeterClient {
     implicit val mat = ActorMaterializer()
     implicit val ec = sys.dispatcher
 
-    val client = new GreeterServiceClient(
-      GrpcClientSettings("127.0.0.1", 8080)
-        .withOverrideAuthority("foo.test.google.fr")
-        .withTrustedCaCertificate("ca.pem"))
+    val client = new GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
 
     val names =
       if (args.isEmpty) List("Alice", "Bob")
