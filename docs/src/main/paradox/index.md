@@ -131,8 +131,9 @@ As you saw in the console output, the example outputs several greetings. Let’s
 
 ### Server
 
-First, the `GreeterServer` main class creates an `akka.actor.ActorSystem`, a container in which Actors, Akka Streams and Akka HTTP run. Next, it defines a function from `HttpRequest` to `Future[HttpResponse]` using the `GreeterServiceImpl`. This function
-handles gRPC requests in the HTTP/2 with TLS server that is bound to port 8080 in this example.
+First, the `GreeterServer` main class creates an `akka.actor.ActorSystem`, a container in which Actors, 
+Akka Streams and Akka HTTP run. Next, it defines a function from `HttpRequest` to `Future[HttpResponse]` using the `GreeterServiceImpl`. This function
+handles gRPC requests in the HTTP/2 server and is bound to port 8080 in this example.
 
 @@snip [GreeterServer.scala]($g8src$/scala/com/example/helloworld/GreeterServer.scala) { #import #server }
 
