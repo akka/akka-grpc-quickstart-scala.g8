@@ -20,20 +20,20 @@
   <dependencies>
     <dependency>
       <groupId>com.lightbend.akka.grpc</groupId>
-      <artifactId>akka-grpc-runtime_$scala_major_version$</artifactId>
+      <artifactId>akka-grpc-runtime_2.12</artifactId>
       <version>\${akka.grpc.version}</version>
     </dependency>
 
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-stream-testkit_$scala_major_version$</artifactId>
+      <artifactId>akka-stream-testkit_2.12</artifactId>
       <version>\${akka.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_$scala_major_version$</artifactId>
+      <artifactId>scalatest_2.12</artifactId>
       <version>3.0.5</version>
       <scope>test</scope>
     </dependency>
