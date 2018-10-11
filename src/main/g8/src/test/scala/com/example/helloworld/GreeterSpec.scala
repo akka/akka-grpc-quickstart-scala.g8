@@ -33,15 +33,12 @@ class GreeterSpec
     sys
   }
 
-  val clientSystem = ActorSystem("HelloWorldClient")
+  implicit val clientSystem = ActorSystem("HelloWorldClient")
+  implicit val mat = ActorMaterializer()
 
   val client = {
-    implicit val mat = ActorMaterializer.create(clientSystem)
     implicit val ec = clientSystem.dispatcher
-    new GreeterServiceClient(
-      GrpcClientSettings("127.0.0.1", 8080)
-        .withOverrideAuthority("foo.test.google.fr")
-        .withTrustedCaCertificate("ca.pem"))
+    new GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
   }
 
   override def afterAll: Unit = {

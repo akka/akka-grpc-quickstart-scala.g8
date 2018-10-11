@@ -21,10 +21,7 @@ sbt new akka/akka-grpc-quickstart-scala.g8
 
 This template will prompt for the name of the project. Press `Enter` if the default values suit you.
 
-Once inside the project folder, run the application with:
-```
-sbt run
-```
+Once inside the project folder, follow the [Akka gRPC Quickstart with Scala guide](https://developer.lightbend.com/guides/akka-grpc-quickstart-scala/) run both the server and the client and also to learn more about how this Hello World project works.
 
 ## Template license
 

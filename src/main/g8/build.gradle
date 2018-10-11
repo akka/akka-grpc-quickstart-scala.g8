@@ -38,7 +38,7 @@ configurations {
 
 dependencies {
 
-  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:2.5.13'
+  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
   testImplementation 'org.scalatest:scalatest_2.12:3.0.5'
   testRuntime 'org.pegdown:pegdown:1.1.0'
 
