@@ -38,7 +38,7 @@ class GreeterSpec
 
   val client = {
     implicit val ec = clientSystem.dispatcher
-    new GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
+    GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
   }
 
   override def afterAll: Unit = {
