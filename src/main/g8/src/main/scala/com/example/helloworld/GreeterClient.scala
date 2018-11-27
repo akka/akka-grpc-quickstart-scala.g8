@@ -23,7 +23,7 @@ object GreeterClient {
     implicit val mat = ActorMaterializer()
     implicit val ec = sys.dispatcher
 
-    val client = new GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
+    val client = GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
 
     val names =
       if (args.isEmpty) List("Alice", "Bob")
