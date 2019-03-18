@@ -42,8 +42,6 @@ class GreeterServer(system: ActorSystem) {
       service,
       interface = "127.0.0.1",
       port = 8080,
-      // Needed until akka-http 10.1.5 see  https://github.com/akka/akka-http/issues/2168
-      parallelism = 256,
       connectionContext = HttpConnectionContext(http2 = Always)
     )
 
