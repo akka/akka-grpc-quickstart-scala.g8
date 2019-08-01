@@ -1,9 +1,14 @@
 language: scala
 scala:
-  - 2.12.6
+  - 2.12.8
 
-jdk:
-  - oraclejdk8
+env:
+  matrix:
+    - TRAVIS_JDK=adopt@1.8.202-08
+    - TRAVIS_JDK=adopt@1.11.0-2
+
+before_install: curl -Ls https://git.io/jabba | bash && . ~/.jabba/jabba.sh
+install: jabba install "$TRAVIS_JDK" && jabba use "$_" && java -Xmx32m -version
 
 script:
  - sbt test docs/paradox
@@ -14,6 +19,7 @@ before_cache:
 
 cache:
   directories:
+    - $HOME/.jabba/jdk
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot
     - $HOME/.gradle
