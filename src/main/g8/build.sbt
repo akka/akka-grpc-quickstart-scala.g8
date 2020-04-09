@@ -11,7 +11,7 @@ enablePlugins(AkkaGrpcPlugin)
 
 // ALPN agent
 enablePlugins(JavaAgent)
-javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % "2.0.7" % "runtime;test"
+javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % "2.0.10" % "runtime;test"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-discovery" % akkaVersion,
