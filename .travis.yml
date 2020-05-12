@@ -24,3 +24,4 @@ cache:
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot
     - $HOME/.gradle
+    - $HOME/.m2/repository
