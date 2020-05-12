@@ -12,6 +12,7 @@ install: jabba install "$TRAVIS_JDK" && jabba use "$_" && java -Xmx32m -version
 
 script:
  - sbt test docs/paradox
+ - sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc && mvn test && popd || travis_terminate
 
 before_cache:
   - find $HOME/.ivy2 -name "ivydata-*.properties" -print -delete
