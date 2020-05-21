@@ -21,6 +21,22 @@
   
   <dependencies>
     <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-actor_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-discovery_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-stream_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.lightbend.akka.grpc</groupId>
       <artifactId>akka-grpc-runtime_\${scala.binary.version}</artifactId>
       <version>\${akka.grpc.version}</version>
