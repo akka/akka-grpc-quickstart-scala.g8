@@ -1,4 +1,4 @@
-version: ~1.0
+version: ~> 1.0
 language: scala
 scala:
   - 2.12.11
@@ -35,7 +35,7 @@ jobs:
     - name: "Maven (JDK 11)"
       ## set name to "hello-world-grpc" and accept all other defaults (--force)
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
-      env: TRAVIS_JDK=adopt@1.11.0-9
+      env: TRAVIS_JDK=adopt@1.11.0-6
 
     - name: "Gradle (JDK 8)"
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew build  && popd || travis_terminate 1
@@ -43,7 +43,7 @@ jobs:
 
     - name: "Gradle (JDK 11)"
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew build  && popd || travis_terminate 1
-      env: TRAVIS_JDK=adopt@1.11.0-9
+      env: TRAVIS_JDK=adopt@1.11.0-6
 
 stages:
   - name: check
