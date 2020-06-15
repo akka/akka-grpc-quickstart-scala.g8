@@ -2,15 +2,14 @@ package com.example.helloworld
 
 //#import
 import scala.concurrent.duration._
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Failure
 import scala.util.Success
-
 import akka.Done
 import akka.NotUsed
-import akka.actor.ActorSystem
+import akka.actor.typed.ActorSystem
+import akka.actor.typed.scaladsl.Behaviors
 import akka.grpc.GrpcClientSettings
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 
 //#import
@@ -19,9 +18,8 @@ import akka.stream.scaladsl.Source
 object GreeterClient {
 
   def main(args: Array[String]): Unit = {
-    implicit val sys = ActorSystem("HelloWorldClient")
-    implicit val mat = ActorMaterializer()
-    implicit val ec = sys.dispatcher
+    implicit val sys: ActorSystem[_] = ActorSystem(Behaviors.empty, "GreeterClient")
+    implicit val ec: ExecutionContext = sys.executionContext
 
     val client = GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
 

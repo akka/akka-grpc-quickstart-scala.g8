@@ -1,32 +1,32 @@
 //#full-example
 package com.example.helloworld
 
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import scala.language.postfixOps
+import akka.actor.testkit.typed.scaladsl.ActorTestKit
+import akka.actor.typed.ActorSystem
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
 import org.scalatest.BeforeAndAfterAll
-import org.scalatest.Matchers
-import org.scalatest.WordSpecLike
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.time.Span
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+import scala.concurrent.duration._
 
 class GreeterServiceImplSpec
-  extends Matchers
-  with WordSpecLike
+  extends AnyWordSpec
   with BeforeAndAfterAll
+  with Matchers
   with ScalaFutures {
 
-  implicit val patience = PatienceConfig(5.seconds, Span(100, org.scalatest.time.Millis))
+  val testKit = ActorTestKit()
 
-  val system = ActorSystem("HelloWorldServer")
-  implicit val mat = ActorMaterializer.create(system)
-  val service = new GreeterServiceImpl(mat)
+  implicit val patience: PatienceConfig = PatienceConfig(scaled(5.seconds), scaled(100.millis))
+
+  implicit val system: ActorSystem[_] = testKit.system
+
+  val service = new GreeterServiceImpl(system)
 
   override def afterAll: Unit = {
-    Await.ready(system.terminate(), 5.seconds)
+    testKit.shutdownTestKit()
   }
 
   "GreeterServiceImpl" should {

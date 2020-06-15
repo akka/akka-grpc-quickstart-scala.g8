@@ -22,7 +22,7 @@
   <dependencies>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-actor_\${scala.binary.version}</artifactId>
+      <artifactId>akka-actor-typed_\${scala.binary.version}</artifactId>
       <version>\${akka.version}</version>
     </dependency>
     <dependency>
@@ -44,6 +44,13 @@
 
     <dependency>
       <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-actor-testkit-typed_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-stream-testkit_\${scala.binary.version}</artifactId>
       <version>\${akka.version}</version>
       <scope>test</scope>
@@ -52,7 +59,7 @@
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_\${scala.binary.version}</artifactId>
-      <version>3.0.8</version>
+      <version>3.1.1</version>
       <scope>test</scope>
     </dependency>
 
