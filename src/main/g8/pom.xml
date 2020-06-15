@@ -12,13 +12,32 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <akka.version>$akka_version$</akka.version>
-    <akka.grpc.version>$akka_grpc_version$</akka.grpc.version>
+    <akka.grpc.version>1.0.0-M1+35-c8aa943b</akka.grpc.version>
+    <!--    <akka.grpc.version>$akka_grpc_version$</akka.grpc.version>-->
     <scala.binary.version>$scala_major_version$</scala.binary.version>
     <jetty.alpn.agent.version>$jetty_alpn_agent_version$</jetty.alpn.agent.version>
     <grpc.version>1.28.1</grpc.version>
     <project.encoding>UTF-8</project.encoding>
   </properties>
-  
+
+  <!-- TODO remove when Akka gRPC 1.0.0 is final -->
+  <repositories>
+    <repository>
+      <id>bintray-akka-snapshots</id>
+      <name>bintray</name>
+      <url>https://dl.bintray.com/akka/snapshots</url>
+    </repository>
+  </repositories>
+
+  <!-- TODO remove when Akka gRPC 1.0.0 is final -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>bintray-akka-snapshots</id>
+      <name>bintray</name>
+      <url>https://dl.bintray.com/akka/snapshots</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
