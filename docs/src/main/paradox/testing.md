@@ -13,7 +13,7 @@ to verify that it retrieves the expected responses from the server.
 
 The above test example is a full integration test using real client and server, including communication via HTTP/2.
 For some testing of the service implementation it might be more appropriate to write unit tests without interaction
-via the gRPC client. Since the service interface and implementation doesn't require any gRPC intrastructure it can
+via the gRPC client. Since the service interface and implementation doesn't require any gRPC infrastructure it can
 be tested without binding it to a HTTP server.
 
 @@snip [GreeterServiceImplSpec.scala]($g8srctest$/scala/com/example/helloworld/GreeterServiceImplSpec.scala) { #full-example }
