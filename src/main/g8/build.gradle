@@ -44,6 +44,7 @@ dependencies {
   compile 'com.typesafe.akka:akka-discovery_$scala_major_version$:$akka_version$'
   compile 'com.typesafe.akka:akka-protobuf_$scala_major_version$:$akka_version$'
   compile 'com.typesafe.akka:akka-stream_$scala_major_version$:$akka_version$'
+  compile 'com.typesafe.akka:akka-pki_$scala_major_version$:$akka_version$'
 
   testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_$scala_major_version$:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_$scala_major_version$:$akka_version$'

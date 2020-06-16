@@ -2,24 +2,31 @@ package com.example.helloworld
 
 //#import
 
-import java.io.ByteArrayOutputStream
-import java.security.{KeyFactory, KeyStore, SecureRandom}
-import java.security.cert.{Certificate, CertificateFactory}
-import java.security.spec.PKCS8EncodedKeySpec
-import java.util.Base64
+
+import java.io.File
+import java.nio.file.Files
+import java.security.KeyStore
+import java.security.SecureRandom
+import java.security.cert.Certificate
+import java.security.cert.CertificateFactory
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.adapter._
-import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
-import akka.http.scaladsl.{ConnectionContext, Http, HttpsConnectionContext}
+import akka.http.scaladsl.ConnectionContext
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.HttpsConnectionContext
+import akka.http.scaladsl.model.HttpRequest
+import akka.http.scaladsl.model.HttpResponse
+import akka.pki.pem.DERPrivateKeyLoader
+import akka.pki.pem.PEMDecoder
 import akka.stream.SystemMaterializer
-
 import com.typesafe.config.ConfigFactory
-import javax.net.ssl.{KeyManagerFactory, SSLContext}
+import javax.net.ssl.KeyManagerFactory
+import javax.net.ssl.SSLContext
 
-import scala.concurrent.{ExecutionContext, Future}
-
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 //#import
 
 
@@ -60,18 +67,22 @@ class GreeterServer(system: ActorSystem[_]) {
   }
   //#server
 
-  // FIXME this will be replaced by a more convenient utility, see https://github.com/akka/akka-grpc/issues/89
+
   private def serverHttpContext: HttpsConnectionContext = {
-    val keyEncoded = read(classOf[GreeterServer].getResourceAsStream("/certs/server1.key")).replace("-----BEGIN PRIVATE KEY-----\n", "").replace("-----END PRIVATE KEY-----\n", "").replace("\n", "")
-    val decodedKey = Base64.getDecoder.decode(keyEncoded)
-    val spec = new PKCS8EncodedKeySpec(decodedKey)
-    val kf = KeyFactory.getInstance("RSA")
-    val privateKey = kf.generatePrivate(spec)
+    val privateKey =
+      DERPrivateKeyLoader.load(PEMDecoder.decode(readPrivateKeyPem()))
     val fact = CertificateFactory.getInstance("X.509")
-    val cer = fact.generateCertificate(classOf[GreeterServer].getResourceAsStream("/certs/server1.pem"))
+    val cer = fact.generateCertificate(
+      classOf[GreeterServer].getResourceAsStream("/certs/server1.pem")
+    )
     val ks = KeyStore.getInstance("PKCS12")
     ks.load(null)
-    ks.setKeyEntry("private", privateKey, new Array[Char](0), Array[Certificate](cer))
+    ks.setKeyEntry(
+      "private",
+      privateKey,
+      new Array[Char](0),
+      Array[Certificate](cer)
+    )
     val keyManagerFactory = KeyManagerFactory.getInstance("SunX509")
     keyManagerFactory.init(ks, null)
     val context = SSLContext.getInstance("TLS")
@@ -79,17 +90,14 @@ class GreeterServer(system: ActorSystem[_]) {
     ConnectionContext.https(context)
   }
 
-  private def read(in: java.io.InputStream) = {
-    val baos = new ByteArrayOutputStream(Math.max(64, in.available))
-    val buffer = new Array[Byte](32 * 1024)
-    var bytesRead = in.read(buffer)
-    while (bytesRead >= 0) {
-      baos.write(buffer, 0, bytesRead)
-      bytesRead = in.read(buffer)
-    }
-    new String(baos.toByteArray, "UTF-8")
+  private def readPrivateKeyPem(): String = {
+    // this is a file:// URI
+    val uri = classOf[GreeterServer].getClassLoader
+      .getResource("certs/server1.key")
+      .toURI()
+    val bytes = Files.readAllBytes(new File(uri).toPath)
+    new String(bytes, "UTF-8")
   }
-
   //#server
 
 }
