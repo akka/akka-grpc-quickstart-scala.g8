@@ -15,14 +15,14 @@ buildscript {
     // TODO remove when Akka gRPC 1.0.0 is final
     classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:1.0.0-M1+37-732f2dee'
 
-    classpath "gradle.plugin.com.github.maiflai:gradle-scalatest:0.22"
+    classpath "gradle.plugin.com.github.maiflai:gradle-scalatest:0.26"
   }
 }
 
 plugins {
   id 'scala'
   id 'application'
-  id "com.github.maiflai.scalatest" version "0.22"
+  id "com.github.maiflai.scalatest" version "0.26"
 }
 
 apply plugin: 'com.lightbend.akka.grpc.gradle'
@@ -53,10 +53,11 @@ dependencies {
   testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_$scala_major_version$:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_$scala_major_version$:$akka_version$'
   testImplementation 'org.scalatest:scalatest_$scala_major_version$:3.1.1'
-  testRuntime 'org.pegdown:pegdown:1.1.0'
+  // Required by https://github.com/maiflai/gradle-scalatest
+  testRuntime 'org.pegdown:pegdown:1.4.2'
 
   // Configuration for modules that use Jetty ALPN agent
-  alpnagent 'org.mortbay.jetty.alpn:jetty-alpn-agent:2.0.7'
+  alpnagent 'org.mortbay.jetty.alpn:jetty-alpn-agent:$jetty_alpn_agent_version$'
 }
 
 test {
