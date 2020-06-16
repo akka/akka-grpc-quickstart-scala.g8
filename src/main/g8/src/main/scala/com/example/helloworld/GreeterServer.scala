@@ -57,6 +57,7 @@ class GreeterServer(system: ActorSystem[_]) {
 
     bound
   }
+  //#server
 
   // FIXME this will be replaced by a more convenient utility, see https://github.com/akka/akka-grpc/issues/89
   private def serverHttpContext: HttpsConnectionContext = {
