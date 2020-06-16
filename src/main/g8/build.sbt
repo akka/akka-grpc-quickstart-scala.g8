@@ -9,10 +9,6 @@ lazy val akkaGrpcVersion = "$akka_grpc_version$"
 
 enablePlugins(AkkaGrpcPlugin)
 
-// ALPN agent
-enablePlugins(JavaAgent)
-javaAgents += "org.mortbay.jetty.alpn" % "jetty-alpn-agent" % "$jetty_alpn_agent_version$" % "runtime;test"
-
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,

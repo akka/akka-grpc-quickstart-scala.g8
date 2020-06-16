@@ -38,11 +38,6 @@ repositories {
   }
 }
 
-// Define a separate configuration for managing the dependency on Jetty ALPN agent.
-configurations {
-  alpnagent
-}
-
 dependencies {
 
   compile 'com.typesafe.akka:akka-actor-typed_$scala_major_version$:$akka_version$'
@@ -55,21 +50,12 @@ dependencies {
   testImplementation 'org.scalatest:scalatest_$scala_major_version$:3.1.1'
   // Required by https://github.com/maiflai/gradle-scalatest
   testRuntime 'org.pegdown:pegdown:1.4.2'
-
-  // Configuration for modules that use Jetty ALPN agent
-  alpnagent 'org.mortbay.jetty.alpn:jetty-alpn-agent:$jetty_alpn_agent_version$'
-}
-
-test {
-  jvmArgs "-javaagent:" + configurations.alpnagent.asPath
 }
 
 task runServer(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'com.example.helloworld.GreeterServer'
-
-  jvmArgs "-javaagent:" + configurations.alpnagent.asPath
 }
 
 
