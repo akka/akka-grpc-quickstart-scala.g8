@@ -2,15 +2,18 @@ buildscript {
   repositories {
     mavenLocal()
     gradlePluginPortal()
+    // TODO remove when Akka gRPC 1.0.0 is final
+    maven {
+      url "https://dl.bintray.com/akka/snapshots/"
+    }
   }
 
   dependencies {
     // see https://plugins.gradle.org/plugin/com.lightbend.akka.grpc.gradle
     // for the currently latest version.
-    //classpath 'gradle.plugin.com.lightbend.akka.grpc:akka-grpc-gradle-plugin:0.1'
-
-    // FIXME For testing we use another group id:
-    classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:$akka_grpc_version$'
+    //classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:$akka_grpc_version$'
+    // TODO remove when Akka gRPC 1.0.0 is final
+    classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:1.0.0-M1+37-732f2dee'
 
     classpath "gradle.plugin.com.github.maiflai:gradle-scalatest:0.22"
   }
@@ -29,6 +32,10 @@ apply plugin: "com.github.maiflai.scalatest"
 repositories {
   mavenLocal()
   mavenCentral()
+  // TODO remove when Akka gRPC 1.0.0 is final
+  maven {
+    url "https://dl.bintray.com/akka/snapshots/"
+  }
 }
 
 // Define a separate configuration for managing the dependency on Jetty ALPN agent.

@@ -3,18 +3,8 @@ language: scala
 scala:
   - 2.12.11
 
-#env:
-#  matrix:
-#    - TRAVIS_JDK=adopt@1.8.0-242
-#    - TRAVIS_JDK=adopt@1.11.0-6
-
 before_install: curl -Ls https://git.io/jabba | bash && . ~/.jabba/jabba.sh
 install: jabba install "$TRAVIS_JDK" && jabba use "$_" && java -Xmx32m -version
-
-#script:
-# - sbt test docs/paradox
-# - sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
-# - sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew build  && popd || travis_terminate 1
 
 jobs:
   include:
