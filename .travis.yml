@@ -28,11 +28,11 @@ jobs:
       env: TRAVIS_JDK=adopt@1.11.0-6
 
     - name: "Gradle (JDK 8)"
-      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew build  && popd || travis_terminate 1
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
       env: TRAVIS_JDK=adopt@1.8.0-242
 
     - name: "Gradle (JDK 11)"
-      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew build  && popd || travis_terminate 1
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
       env: TRAVIS_JDK=adopt@1.11.0-6
 
 stages:
