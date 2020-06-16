@@ -1,33 +1,10 @@
-buildscript {
-  repositories {
-    mavenLocal()
-    gradlePluginPortal()
-    // TODO remove when Akka gRPC 1.0.0 is final
-    maven {
-      url "https://dl.bintray.com/akka/snapshots/"
-    }
-  }
-
-  dependencies {
-    // see https://plugins.gradle.org/plugin/com.lightbend.akka.grpc.gradle
-    // for the currently latest version.
-    //classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:$akka_grpc_version$'
-    // TODO remove when Akka gRPC 1.0.0 is final
-    classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:1.0.0-M1+37-732f2dee'
-
-    classpath "gradle.plugin.com.github.maiflai:gradle-scalatest:0.26"
-  }
-}
-
 plugins {
   id 'scala'
   id 'application'
   id "com.github.maiflai.scalatest" version "0.26"
+  // copy-pasted from https://plugins.gradle.org/plugin/com.lightbend.akka.grpc.gradle/1.0.0-M1+37-732f2dee
+  id "com.lightbend.akka.grpc.gradle" version "1.0.0-M1"
 }
-
-apply plugin: 'com.lightbend.akka.grpc.gradle'
-
-apply plugin: "com.github.maiflai.scalatest"
 
 repositories {
   mavenLocal()
