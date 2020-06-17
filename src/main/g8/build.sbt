@@ -18,6 +18,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
   "org.scalatest" %% "scalatest" % "3.1.1" % Test
 )
-
-// TODO remove when Akka gRPC 1.0.0 is final
-resolvers += Resolver.bintrayRepo("akka", "snapshots")
