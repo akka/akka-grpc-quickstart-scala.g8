@@ -2,11 +2,11 @@
  
 Akka gRPC is a toolkit for building streaming gRPC servers and clients on top of Akka Streams. This guide will get you started building gRPC based systems with Scala. If you prefer to use Akka gRPC with Java, switch to the [Akka gRPC Quickstart with Java guide](https://developer.lightbend.com/guides/akka-grpc-quickstart-java/). 
 
-After trying this example the [Akka gRPC documentation](https://developer.lightbend.com/docs/akka-grpc/current/index.html) is a good next step to continue learning more about Akka gRPC.
+After trying this example the [Akka gRPC documentation](https://doc.akka.io/docs/akka-grpc/) is a good next step to continue learning more about Akka gRPC.
 
 ## Downloading the example 
 
-The Hello World example for Scala is a zipped project that includes a distribution of sbt, Maven and Gradle. You can choose any of these build tools. You can run it on Linux, MacOS, or Windows. The only prerequisite is Java 8.
+The Hello World example for Scala is a zipped project that includes a distribution of sbt, Maven and Gradle. You can choose any of these build tools. You can run it on Linux, MacOS, or Windows. The only prerequisite is Java 8 or later.
 
 Download and unzip the example:
 
@@ -116,8 +116,8 @@ To run Hello World:
     ```
     Performing request: Alice
     Performing request: Bob
-    HelloReply(Hello, Bob)
-    HelloReply(Hello, Alice)
+    HelloReply(Hello, Bob,UnknownFieldSet(Map()))
+    HelloReply(Hello, Alice,UnknownFieldSet(Map()))
     ```
 
 
@@ -131,7 +131,7 @@ As you saw in the console output, the example outputs several greetings. Let’s
 
 ### Server
 
-First, the `GreeterServer` main class creates an `akka.actor.ActorSystem`, a container in which Actors, 
+First, the `GreeterServer` main class creates an `akka.actor.typed.ActorSystem`, a container in which Actors, 
 Akka Streams and Akka HTTP run. Next, it defines a function from `HttpRequest` to `Future[HttpResponse]` using the `GreeterServiceImpl`. This function
 handles gRPC requests in the HTTP/2 server and is bound to port 8080 in this example.
 

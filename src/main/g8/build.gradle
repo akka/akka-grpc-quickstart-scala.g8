@@ -1,65 +1,38 @@
-buildscript {
-  repositories {
-    mavenLocal()
-    gradlePluginPortal()
-  }
-
-  dependencies {
-    // see https://plugins.gradle.org/plugin/com.lightbend.akka.grpc.gradle
-    // for the currently latest version.
-    //classpath 'gradle.plugin.com.lightbend.akka.grpc:akka-grpc-gradle-plugin:0.1'
-
-    // FIXME For testing we use another group id:
-    classpath 'com.lightbend.akka.grpc:akka-grpc-gradle-plugin:$akka_grpc_version$'
-
-    classpath "gradle.plugin.com.github.maiflai:gradle-scalatest:0.22"
-  }
-}
-
 plugins {
   id 'scala'
   id 'application'
-  id "com.github.maiflai.scalatest" version "0.22"
+  id "com.github.maiflai.scalatest" version "0.26"
+  id "com.lightbend.akka.grpc.gradle" version "1.0.0"
 }
-
-apply plugin: 'com.lightbend.akka.grpc.gradle'
-
-apply plugin: "com.github.maiflai.scalatest"
 
 repositories {
   mavenLocal()
   mavenCentral()
 }
 
-// Define a separate configuration for managing the dependency on Jetty ALPN agent.
-configurations {
-  alpnagent
-}
-
 dependencies {
 
+  // The Gradle plugin for Akka-gRPC doesn't support 2.13:
+  // https://github.com/akka/akka-grpc/pull/1025
+  compile 'com.typesafe.akka:akka-actor-typed_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-discovery_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-protobuf_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-stream_2.12:$akka_version$'
+  compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
 
+  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.12:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
-  testImplementation 'org.scalatest:scalatest_2.12:3.0.8'
-  testRuntime 'org.pegdown:pegdown:1.1.0'
-
-  // Configuration for modules that use Jetty ALPN agent
-  alpnagent 'org.mortbay.jetty.alpn:jetty-alpn-agent:2.0.7'
-}
-
-test {
-  jvmArgs "-javaagent:" + configurations.alpnagent.asPath
+  testImplementation 'org.scalatest:scalatest_2.12:3.1.1'
+  // optional in Scalatest
+  testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
+  // Required by https://github.com/maiflai/gradle-scalatest
+  testRuntime 'org.pegdown:pegdown:1.4.2'
 }
 
 task runServer(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'com.example.helloworld.GreeterServer'
-
-  jvmArgs "-javaagent:" + configurations.alpnagent.asPath
 }
 
 

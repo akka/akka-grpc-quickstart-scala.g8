@@ -14,15 +14,14 @@
     <akka.version>$akka_version$</akka.version>
     <akka.grpc.version>$akka_grpc_version$</akka.grpc.version>
     <scala.binary.version>$scala_major_version$</scala.binary.version>
-    <jetty.alpn.agent.version>$jetty_alpn_agent_version$</jetty.alpn.agent.version>
     <grpc.version>1.28.1</grpc.version>
     <project.encoding>UTF-8</project.encoding>
   </properties>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-actor_\${scala.binary.version}</artifactId>
+      <artifactId>akka-actor-typed_\${scala.binary.version}</artifactId>
       <version>\${akka.version}</version>
     </dependency>
     <dependency>
@@ -35,11 +34,23 @@
       <artifactId>akka-stream_\${scala.binary.version}</artifactId>
       <version>\${akka.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-pki_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.lightbend.akka.grpc</groupId>
       <artifactId>akka-grpc-runtime_\${scala.binary.version}</artifactId>
       <version>\${akka.grpc.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-actor-testkit-typed_\${scala.binary.version}</artifactId>
+      <version>\${akka.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -52,7 +63,7 @@
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_\${scala.binary.version}</artifactId>
-      <version>3.0.8</version>
+      <version>3.1.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -61,13 +72,6 @@
       <groupId>io.grpc</groupId>
       <artifactId>grpc-stub</artifactId>
       <version>\${grpc.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mortbay.jetty.alpn</groupId>
-      <artifactId>jetty-alpn-agent</artifactId>
-      <version>\${jetty.alpn.agent.version}</version>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <build>
@@ -122,7 +126,6 @@
           <reportsDirectory>\${project.build.directory}/surefire-reports</reportsDirectory>
           <junitxml>.</junitxml>
           <filereports>TestSuite.txt</filereports>
-          <argLine>-javaagent:\${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argLine>
         </configuration>
         <executions>
           <execution>
@@ -162,7 +165,6 @@
             <configuration>
               <executable>java</executable>
               <arguments>
-                <argument>-javaagent:\${org.mortbay.jetty.alpn:jetty-alpn-agent:jar}</argument>
                 <argument>-classpath</argument>
                 <classpath />
                 <argument>com.example.helloworld.GreeterServer</argument>

@@ -1,18 +1,42 @@
+version: ~> 1.0
 language: scala
 scala:
-  - 2.12.11
-
-env:
-  matrix:
-    - TRAVIS_JDK=adopt@1.8.0-242
-    - TRAVIS_JDK=adopt@1.11.0-6
+  - 2.13.1
 
 before_install: curl -Ls https://git.io/jabba | bash && . ~/.jabba/jabba.sh
 install: jabba install "$TRAVIS_JDK" && jabba use "$_" && java -Xmx32m -version
 
-script:
- - sbt test docs/paradox
- - sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc && mvn test && popd || travis_terminate
+jobs:
+  include:
+    - stage: check
+      name: "sbt & Paradox (JDK 8)"
+      script: sbt test docs/paradox
+      env: TRAVIS_JDK=adopt@1.8-0
+
+    - name: "sbt & Paradox (JDK 11)"
+      script: sbt test docs/paradox
+      env: TRAVIS_JDK=adopt@1.11-0
+
+    - name: "Maven (JDK 8)"
+      ## set name to "hello-world-grpc" and accept all other defaults (--force)
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
+      env: TRAVIS_JDK=adopt@1.8-0
+
+    - name: "Maven (JDK 11)"
+      ## set name to "hello-world-grpc" and accept all other defaults (--force)
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
+      env: TRAVIS_JDK=adopt@1.11-0
+
+    - name: "Gradle (JDK 8)"
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
+      env: TRAVIS_JDK=adopt@1.8-0
+
+    - name: "Gradle (JDK 11)"
+      script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
+      env: TRAVIS_JDK=adopt@1.11-0
+
+stages:
+  - name: check
 
 before_cache:
   - find $HOME/.ivy2 -name "ivydata-*.properties" -print -delete
@@ -20,6 +44,7 @@ before_cache:
 
 cache:
   directories:
+    - $HOME/.cache/coursier
     - $HOME/.jabba/jdk
     - $HOME/.ivy2/cache
     - $HOME/.sbt/boot

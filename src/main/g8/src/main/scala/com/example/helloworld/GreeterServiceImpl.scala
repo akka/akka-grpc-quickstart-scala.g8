@@ -4,7 +4,7 @@ package com.example.helloworld
 import scala.concurrent.Future
 
 import akka.NotUsed
-import akka.stream.Materializer
+import akka.actor.typed.ActorSystem
 import akka.stream.scaladsl.BroadcastHub
 import akka.stream.scaladsl.Keep
 import akka.stream.scaladsl.MergeHub
@@ -15,9 +15,8 @@ import akka.stream.scaladsl.Source
 
 //#service-request-reply
 //#service-stream
-class GreeterServiceImpl(materializer: Materializer) extends GreeterService {
-  import materializer.executionContext
-  private implicit val mat: Materializer = materializer
+class GreeterServiceImpl(system: ActorSystem[_]) extends GreeterService {
+  private implicit val sys: ActorSystem[_] = system
 
   //#service-request-reply
   val (inboundHub: Sink[HelloRequest, NotUsed], outboundHub: Source[HelloReply, NotUsed]) =
