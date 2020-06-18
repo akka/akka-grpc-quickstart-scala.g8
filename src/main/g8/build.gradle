@@ -12,15 +12,17 @@ repositories {
 
 dependencies {
 
-  compile 'com.typesafe.akka:akka-actor-typed_$scala_major_version$:$akka_version$'
-  compile 'com.typesafe.akka:akka-discovery_$scala_major_version$:$akka_version$'
-  compile 'com.typesafe.akka:akka-protobuf_$scala_major_version$:$akka_version$'
-  compile 'com.typesafe.akka:akka-stream_$scala_major_version$:$akka_version$'
-  compile 'com.typesafe.akka:akka-pki_$scala_major_version$:$akka_version$'
+  // The Gradle plugin for Akka-gRPC doesn't support 2.13:
+  // https://github.com/akka/akka-grpc/pull/1025
+  compile 'com.typesafe.akka:akka-actor-typed_2.12:$akka_version$'
+  compile 'com.typesafe.akka:akka-discovery_2.12:$akka_version$'
+  compile 'com.typesafe.akka:akka-protobuf_2.12:$akka_version$'
+  compile 'com.typesafe.akka:akka-stream_2.12:$akka_version$'
+  compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
 
-  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_$scala_major_version$:$akka_version$'
-  testImplementation 'com.typesafe.akka:akka-stream-testkit_$scala_major_version$:$akka_version$'
-  testImplementation 'org.scalatest:scalatest_$scala_major_version$:3.1.1'
+  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.12:$akka_version$'
+  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
+  testImplementation 'org.scalatest:scalatest_2.12:3.1.1'
   // optional in Scalatest
   testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
   // Required by https://github.com/maiflai/gradle-scalatest
