@@ -10,6 +10,8 @@ import java.security.SecureRandom
 import java.security.cert.Certificate
 import java.security.cert.CertificateFactory
 
+import scala.io.Source
+
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.adapter._
@@ -90,14 +92,8 @@ class GreeterServer(system: ActorSystem[_]) {
     ConnectionContext.https(context)
   }
 
-  private def readPrivateKeyPem(): String = {
-    // this is a file:// URI
-    val uri = classOf[GreeterServer].getClassLoader
-      .getResource("certs/server1.key")
-      .toURI()
-    val bytes = Files.readAllBytes(new File(uri).toPath)
-    new String(bytes, "UTF-8")
-  }
+  private def readPrivateKeyPem(): String =
+    Source.fromResource("certs/server1.key").mkString
   //#server
 
 }
