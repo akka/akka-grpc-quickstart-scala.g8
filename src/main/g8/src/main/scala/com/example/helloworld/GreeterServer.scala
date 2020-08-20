@@ -53,13 +53,10 @@ class GreeterServer(system: ActorSystem[_]) {
     val service: HttpRequest => Future[HttpResponse] =
       GreeterServiceHandler(new GreeterServiceImpl(system))
 
-    // Akka HTTP 10.1 requires adapters to accept the new actors APIs
-    val bound = Http()(system.toClassic).bindAndHandleAsync(
-      service,
-      interface = "127.0.0.1",
-      port = 8080,
-      serverHttpContext
-    )(SystemMaterializer(system).materializer)
+    val bound = Http(system)
+      .newServerAt(interface = "127.0.0.1", port = 8080)
+      .enableHttps(serverHttpContext)
+      .bind(service)
 
     bound.foreach { binding =>
       println(s"gRPC server bound to: ${binding.localAddress}")
