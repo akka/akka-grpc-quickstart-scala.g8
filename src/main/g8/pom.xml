@@ -51,12 +51,12 @@
 
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-http</artifactId>
+      <artifactId>akka-http_\${scala.binary.version}</artifactId>
       <version>\${akka.http.version}</version>
     </dependency>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-http2-support</artifactId>
+      <artifactId>akka-http2-support_\${scala.binary.version}</artifactId>
       <version>\${akka.http.version}</version>
     </dependency>
 
