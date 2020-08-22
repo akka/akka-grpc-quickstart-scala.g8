@@ -48,7 +48,11 @@
     </dependency>
 
     <!-- // The Akka HTTP overwrites are required because Akka-gRPC depends on 10.1.x -->
-
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-http-core_\${scala.binary.version}</artifactId>
+      <version>\${akka.http.version}</version>
+    </dependency>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-http_\${scala.binary.version}</artifactId>
