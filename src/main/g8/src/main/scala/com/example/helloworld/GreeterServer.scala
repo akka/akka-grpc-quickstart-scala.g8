@@ -3,8 +3,6 @@ package com.example.helloworld
 //#import
 
 
-import java.io.File
-import java.nio.file.Files
 import java.security.KeyStore
 import java.security.SecureRandom
 import java.security.cert.Certificate
@@ -14,7 +12,6 @@ import scala.io.Source
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
-import akka.actor.typed.scaladsl.adapter._
 import akka.http.scaladsl.ConnectionContext
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.HttpsConnectionContext
@@ -22,13 +19,15 @@ import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.HttpResponse
 import akka.pki.pem.DERPrivateKeyLoader
 import akka.pki.pem.PEMDecoder
-import akka.stream.SystemMaterializer
 import com.typesafe.config.ConfigFactory
 import javax.net.ssl.KeyManagerFactory
 import javax.net.ssl.SSLContext
 
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+import scala.util.Failure
+import scala.util.Success
+import scala.concurrent.duration._
 //#import
 
 
@@ -53,16 +52,19 @@ class GreeterServer(system: ActorSystem[_]) {
     val service: HttpRequest => Future[HttpResponse] =
       GreeterServiceHandler(new GreeterServiceImpl(system))
 
-    // Akka HTTP 10.1 requires adapters to accept the new actors APIs
-    val bound = Http()(system.toClassic).bindAndHandleAsync(
-      service,
-      interface = "127.0.0.1",
-      port = 8080,
-      serverHttpContext
-    )(SystemMaterializer(system).materializer)
+    val bound: Future[Http.ServerBinding] = Http(system)
+      .newServerAt(interface = "127.0.0.1", port = 8080)
+      .enableHttps(serverHttpContext)
+      .bind(service)
+      .map(_.addToCoordinatedShutdown(hardTerminationDeadline = 10.seconds))
 
-    bound.foreach { binding =>
-      println(s"gRPC server bound to: ${binding.localAddress}")
+    bound.onComplete {
+      case Success(binding) =>
+        val address = binding.localAddress
+        println("gRPC server bound to {}:{}", address.getHostString, address.getPort)
+      case Failure(ex) =>
+        println("Failed to bind gRPC endpoint, terminating system", ex)
+        system.terminate()
     }
 
     bound

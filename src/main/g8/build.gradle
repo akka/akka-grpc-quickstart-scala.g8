@@ -20,6 +20,10 @@ dependencies {
   compile 'com.typesafe.akka:akka-stream_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
 
+  // The Akka HTTP overwrites are required because Akka-gRPC depends on 10.1.x
+  compile 'com.typesafe.akka:akka-http_2.12:10.2.0'
+  compile 'com.typesafe.akka:akka-http2-support_2.12:10.2.0'
+
   testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.12:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
   testImplementation 'org.scalatest:scalatest_2.12:3.1.1'
