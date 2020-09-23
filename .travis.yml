@@ -1,42 +1,39 @@
 version: ~> 1.0
+
+import: scala/scala-dev:travis/default.yml
+
 language: scala
 scala:
   - 2.13.1
-
-before_install:
-  - if [ ! -f ~/.jabba/jabba.sh ]; then curl -L -v --retry 5 -o jabba-install.sh https://raw.githubusercontent.com/shyiko/jabba/0.11.2/install.sh && bash jabba-install.sh; fi
-  - . ~/.jabba/jabba.sh
-install: jabba install $(jabba ls-remote "adopt@~1.$TRAVIS_JDK.0-0" --latest=patch) && jabba use "$_" && java -Xmx32m -version
-
 
 jobs:
   include:
     - stage: check
       name: "sbt & Paradox (JDK 8)"
       script: sbt test docs/paradox
-      env: TRAVIS_JDK=adopt@1.8-0
+      env: ADOPTOPENJDK=8
 
     - name: "sbt & Paradox (JDK 11)"
       script: sbt test docs/paradox
-      env: TRAVIS_JDK=adopt@1.11-0
+      env: ADOPTOPENJDK=11
 
     - name: "Maven (JDK 8)"
       ## set name to "hello-world-grpc" and accept all other defaults (--force)
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
-      env: TRAVIS_JDK=adopt@1.8-0
+      env: ADOPTOPENJDK=8
 
     - name: "Maven (JDK 11)"
       ## set name to "hello-world-grpc" and accept all other defaults (--force)
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test         && popd || travis_terminate 1
-      env: TRAVIS_JDK=adopt@1.11-0
+      env: ADOPTOPENJDK=11
 
     - name: "Gradle (JDK 8)"
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
-      env: TRAVIS_JDK=adopt@1.8-0
+      env: ADOPTOPENJDK=8
 
     - name: "Gradle (JDK 11)"
       script: sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build
-      env: TRAVIS_JDK=adopt@1.11-0
+      env: ADOPTOPENJDK=11
 
 stages:
   - name: check
@@ -47,10 +44,6 @@ before_cache:
 
 cache:
   directories:
-    - $HOME/.cache/coursier
-    - $HOME/.jabba
-    - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot
     - $HOME/.gradle
     - $HOME/.m2/repository
 
