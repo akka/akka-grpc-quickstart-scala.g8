@@ -12,7 +12,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <akka.version>$akka_version$</akka.version>
-    <akka.http.version>10.2.0</akka.http.version>
+    <akka.http.version>$akka_http_version$</akka.http.version>
     <akka.grpc.version>$akka_grpc_version$</akka.grpc.version>
     <scala.binary.version>$scala_major_version$</scala.binary.version>
     <grpc.version>1.28.1</grpc.version>
@@ -20,6 +20,18 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-http_\${scala.binary.version}</artifactId>
+      <version>\${akka.http.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.typesafe.akka</groupId>
+      <artifactId>akka-http2-support_\${scala.binary.version}</artifactId>
+      <version>\${akka.http.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-actor-typed_\${scala.binary.version}</artifactId>
