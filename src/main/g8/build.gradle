@@ -23,6 +23,8 @@ dependencies {
   compile 'com.typesafe.akka:akka-http_2.12:$akka_http_version$'
   compile 'com.typesafe.akka:akka-http2-support_2.12:$akka_http_version$'
 
+  compile 'ch.qos.logback:logback-classic:1.2.3'
+
   testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.12:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
   testImplementation 'org.scalatest:scalatest_2.12:3.1.1'
