@@ -25,7 +25,7 @@ class GreeterServiceImplSpec
 
   val service = new GreeterServiceImpl(system)
 
-  override def afterAll: Unit = {
+  override def afterAll(): Unit = {
     testKit.shutdownTestKit()
   }
 
