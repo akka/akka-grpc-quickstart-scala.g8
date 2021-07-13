@@ -10,7 +10,7 @@ The Hello World example for Scala is a zipped project that includes a distributi
 
 Download and unzip the example:
 
-1. Download the zip file from [Lightbend Tech Hub](https://developer.lightbend.com/start/?group=akka&project=akka-grpc-quickstart-scala) by clicking `CREATE A PROJECT FOR ME`. 
+1. Download the [zip file](https://example.lightbend.com/v1/download/akka-grpc-quickstart-java?name=akka-grpc-quickstart-java). 
 1. Extract the zip file to a convenient location: 
   - On Linux and OSX systems, open a terminal and use the command `unzip akka-grpc-quickstart-scala.zip`. Note: On OSX, if you unzip using Archiver, you also have to make the build files executable:
 
