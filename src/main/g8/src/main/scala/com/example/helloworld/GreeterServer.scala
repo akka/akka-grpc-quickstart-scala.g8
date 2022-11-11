@@ -38,7 +38,7 @@ object GreeterServer {
     // important to enable HTTP/2 in ActorSystem's config
     val conf = ConfigFactory.parseString("akka.http.server.preview.enable-http2 = on")
       .withFallback(ConfigFactory.defaultApplication())
-    val system = ActorSystem[Nothing](Behaviors.empty, "GreeterServer", conf)
+    val system = ActorSystem[Nothing](Behaviors.empty[Nothing], "GreeterServer", conf)
     new GreeterServer(system).run()
   }
 }
@@ -52,7 +52,7 @@ class GreeterServer(system: ActorSystem[_]) {
     val service: HttpRequest => Future[HttpResponse] =
       GreeterServiceHandler(new GreeterServiceImpl(system))
 
-    val bound: Future[Http.ServerBinding] = Http(system)
+    val bound: Future[Http.ServerBinding] = Http()(system)
       .newServerAt(interface = "127.0.0.1", port = 8080)
       .enableHttps(serverHttpContext)
       .bind(service)
@@ -61,9 +61,10 @@ class GreeterServer(system: ActorSystem[_]) {
     bound.onComplete {
       case Success(binding) =>
         val address = binding.localAddress
-        println("gRPC server bound to {}:{}", address.getHostString, address.getPort)
+        println(s"gRPC server bound to ${address.getHostString}:${address.getPort}")
       case Failure(ex) =>
-        println("Failed to bind gRPC endpoint, terminating system", ex)
+        println("Failed to bind gRPC endpoint, terminating system")
+        ex.printStackTrace()
         system.terminate()
     }
 
