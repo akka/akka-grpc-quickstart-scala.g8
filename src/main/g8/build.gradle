@@ -8,6 +8,9 @@ plugins {
 repositories {
   mavenCentral()
   mavenLocal()
+  maven {
+    url "https://repo.akka.io/maven"
+  }
 }
 
 dependencies {
@@ -16,7 +19,6 @@ dependencies {
   // https://github.com/akka/akka-grpc/pull/1025
   compile 'com.typesafe.akka:akka-actor-typed_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-discovery_2.12:$akka_version$'
-  compile 'com.typesafe.akka:akka-protobuf_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-stream_2.12:$akka_version$'
   compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
 
