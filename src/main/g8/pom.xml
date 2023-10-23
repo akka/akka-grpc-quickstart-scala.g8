@@ -26,17 +26,18 @@
       <url>https://repo.akka.io/maven</url>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>akka-repository</id>
+      <name>Akka library repository</name>
+      <url>https://repo.akka.io/maven</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <dependencies>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-http_\${scala.binary.version}</artifactId>
-      <version>\${akka.http.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-http2-support_\${scala.binary.version}</artifactId>
       <version>\${akka.http.version}</version>
     </dependency>
 
