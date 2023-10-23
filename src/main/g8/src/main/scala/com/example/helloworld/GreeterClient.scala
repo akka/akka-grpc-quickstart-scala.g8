@@ -18,7 +18,7 @@ import akka.stream.scaladsl.Source
 object GreeterClient {
 
   def main(args: Array[String]): Unit = {
-    implicit val sys: ActorSystem[Nothing] = ActorSystem(Behaviors.empty[Nothing], "GreeterClient")
+    implicit val sys: ActorSystem[Nothing] = ActorSystem[Nothing](Behaviors.empty[Nothing], "GreeterClient")
     implicit val ec: ExecutionContext = sys.executionContext
 
     val client = GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))

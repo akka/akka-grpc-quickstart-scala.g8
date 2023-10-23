@@ -23,7 +23,6 @@ dependencies {
   compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
 
   compile 'com.typesafe.akka:akka-http_2.12:$akka_http_version$'
-  compile 'com.typesafe.akka:akka-http2-support_2.12:$akka_http_version$'
 
   compile 'ch.qos.logback:logback-classic:1.2.3'
 
