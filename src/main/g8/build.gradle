@@ -25,9 +25,9 @@ dependencies {
 
   testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.13:$akka_version$'
   testImplementation 'com.typesafe.akka:akka-stream-testkit_2.13:$akka_version$'
-  testImplementation 'org.scalatest:scalatest_2.12:3.2.9'
+  testImplementation 'org.scalatest:scalatest_2.13:3.2.12'
   // optional in Scalatest
-  testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
+  testRuntime 'com.vladsch.flexmark:flexmark-all:0.62.2'
   // Required by https://github.com/maiflai/gradle-scalatest
   testRuntime 'org.pegdown:pegdown:1.4.2'
 }
