@@ -92,7 +92,7 @@ class GreeterServer(system: ActorSystem[_]) {
     keyManagerFactory.init(ks, null)
     val context = SSLContext.getInstance("TLS")
     context.init(keyManagerFactory.getKeyManagers, null, new SecureRandom)
-    ConnectionContext.https(context)
+    ConnectionContext.httpsServer(context)
   }
 
   private def readPrivateKeyPem(): String =
