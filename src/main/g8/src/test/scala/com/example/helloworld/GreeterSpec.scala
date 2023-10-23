@@ -40,7 +40,7 @@ class GreeterSpec
   val client =
     GreeterServiceClient(GrpcClientSettings.fromConfig("helloworld.GreeterService"))
 
-  override def afterAll: Unit = {
+  override def afterAll(): Unit = {
     ActorTestKit.shutdown(clientSystem)
     testKit.shutdownTestKit()
   }
