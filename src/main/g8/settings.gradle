@@ -1,6 +1,11 @@
 pluginManagement {
     repositories {
-        mavenLocal()
         gradlePluginPortal()
+        maven {
+            url "https://repo.akka.io/maven"
+        }
+    }
+    plugins {
+        id 'com.lightbend.akka.grpc.gradle' version '$akka_grpc_version$'
     }
 }

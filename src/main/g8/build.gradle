@@ -1,38 +1,42 @@
-plugins {
-  id 'scala'
-  id 'application'
-  id "com.github.maiflai.scalatest" version "0.26"
-  id "com.lightbend.akka.grpc.gradle" version '$akka_grpc_version$'
+buildscript {
+  repositories {
+    gradlePluginPortal()
+    maven {
+      url "https://repo.akka.io/maven"
+    }
+  }
 }
-
+plugins {
+  id 'java'
+  id 'application'
+  id 'com.lightbend.akka.grpc.gradle'
+}
 repositories {
   mavenCentral()
-  mavenLocal()
   maven {
     url "https://repo.akka.io/maven"
   }
 }
 
 dependencies {
+  implementation 'org.scala-lang:scala-library:2.13.12'
 
-  // The Gradle plugin for Akka-gRPC doesn't support 2.13:
-  // https://github.com/akka/akka-grpc/pull/1025
-  compile 'com.typesafe.akka:akka-actor-typed_2.12:$akka_version$'
-  compile 'com.typesafe.akka:akka-discovery_2.12:$akka_version$'
-  compile 'com.typesafe.akka:akka-stream_2.12:$akka_version$'
-  compile 'com.typesafe.akka:akka-pki_2.12:$akka_version$'
+  implementation 'com.typesafe.akka:akka-actor-typed_2.13:$akka_version$'
+  implementation 'com.typesafe.akka:akka-discovery_2.13:$akka_version$'
+  implementation 'com.typesafe.akka:akka-stream_2.13:$akka_version$'
+  implementation 'com.typesafe.akka:akka-pki_2.13:$akka_version$'
 
-  compile 'com.typesafe.akka:akka-http_2.12:$akka_http_version$'
+  implementation 'com.typesafe.akka:akka-http_2.13:$akka_http_version$'
 
-  compile 'ch.qos.logback:logback-classic:1.2.3'
+  implementation 'ch.qos.logback:logback-classic:1.2.3'
 
-  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.12:$akka_version$'
-  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.12:$akka_version$'
-  testImplementation 'org.scalatest:scalatest_2.12:3.2.9'
+  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.13:$akka_version$'
+  testImplementation 'com.typesafe.akka:akka-stream-testkit_2.13:$akka_version$'
+  testImplementation 'org.scalatest:scalatest_2.13:3.2.12'
   // optional in Scalatest
-  testRuntime 'com.vladsch.flexmark:flexmark-all:0.35.10'
+  testRuntimeOnly 'com.vladsch.flexmark:flexmark-all:0.62.2'
   // Required by https://github.com/maiflai/gradle-scalatest
-  testRuntime 'org.pegdown:pegdown:1.4.2'
+  testRuntimeOnly 'org.pegdown:pegdown:1.4.2'
 }
 
 task runServer(type: JavaExec) {
