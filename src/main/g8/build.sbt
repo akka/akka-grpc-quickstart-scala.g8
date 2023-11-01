@@ -5,7 +5,6 @@ version := "1.0"
 scalaVersion := "$scala_version$"
 
 lazy val akkaVersion = "$akka_version$"
-lazy val akkaHttpVersion = "$akka_http_version$"
 lazy val akkaGrpcVersion = "$akka_grpc_version$"
 
 enablePlugins(AkkaGrpcPlugin)
@@ -19,7 +18,6 @@ fork := true
 resolvers += "Akka library repository".at("https://repo.akka.io/maven")
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-discovery" % akkaVersion,
