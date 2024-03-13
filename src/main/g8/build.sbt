@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-discovery" % akkaVersion,
   "com.typesafe.akka" %% "akka-pki" % akkaVersion,
 
-  "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "ch.qos.logback" % "logback-classic" % "1.2.13",
 
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
