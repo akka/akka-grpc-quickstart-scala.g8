@@ -1,5 +1,7 @@
 # Akka gRPC Quickstart with Scala
 
+The Akka family of projects is managed by teams at [Lightbend](https://lightbend.com/) with help from the community.
+
 ## Quickstart guide
 
 This example is described in the [Akka gRPC Quickstart with Scala guide](https://developer.lightbend.com/guides/akka-grpc-quickstart-scala/)
