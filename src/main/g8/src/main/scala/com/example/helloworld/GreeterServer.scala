@@ -52,6 +52,13 @@ class GreeterServer(system: ActorSystem[_]) {
     val service: HttpRequest => Future[HttpResponse] =
       GreeterServiceHandler(new GreeterServiceImpl(system))
 
+    val serverHttpContext =
+      ConnectionContext.httpsServer(SSLContextFactory.createSSLContextFromPem(
+        // Note filesystem paths, not classpath
+        Paths.get("src/main/resources/certs/server1.pem"),
+        Paths.get("src/main/resources/certs/server1.key")
+      ))
+
     val bound: Future[Http.ServerBinding] = Http()(system)
       .newServerAt(interface = "127.0.0.1", port = 8080)
       .enableHttps(serverHttpContext)
@@ -70,15 +77,6 @@ class GreeterServer(system: ActorSystem[_]) {
 
     bound
   }
-  //#server
-
-  private def serverHttpContext: HttpsConnectionContext =
-    ConnectionContext.httpsServer(SSLContextFactory.createSSLContextFromPem(
-      // Note filesystem paths, not classpath
-      Paths.get("src/main/resources/certs/server1.pem"),
-      Paths.get("src/main/resources/certs/server1.key")
-    ))
-  //#server
 
 }
 //#server
