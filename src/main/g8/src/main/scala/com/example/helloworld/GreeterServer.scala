@@ -54,7 +54,7 @@ class GreeterServer(system: ActorSystem[_]) {
 
     val serverHttpContext =
       ConnectionContext.httpsServer(SSLContextFactory.createSSLContextFromPem(
-        // Note filesystem paths, not classpath
+        // Note: filesystem paths, not classpath
         Paths.get("src/main/resources/certs/server1.pem"),
         Paths.get("src/main/resources/certs/server1.key")
       ))
