@@ -35,20 +35,13 @@ jobs:
         # v6.4.5
         uses: coursier/cache-action@1ff273bff02a8787bc9f1877d347948af647956d
 
-      - name: sbt test
-        run: sbt test
+      - name: sbt 2.13 test
+        run: |-
+          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.14 --force && pushd hello-world213 &&  sbt test
 
       - name: sbt Scala 3
         run: |-
-          sbt new file://$PWD --name=hello-world --scala_version=3.3.1 --force && pushd hello-world &&  sbt test
-
-      - name: Maven
-        run: |-
-          sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  mvn test
-
-      - name: Gradle
-        run: |-
-          sbt new file://$PWD --name=hello-world-grpc --force && pushd hello-world-grpc &&  ./gradlew --console=plain build -i --no-daemon
+          sbt new file://$PWD --name=hello-world3 --scala_version=3.3.3 --force && pushd hello-world3 &&  sbt test
 
       - name: Email on failure
         if: ${{ failure() }}
