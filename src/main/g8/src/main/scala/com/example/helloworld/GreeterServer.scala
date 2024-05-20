@@ -15,6 +15,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.ConnectionContext
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.HttpsConnectionContext
+import akka.http.scaladsl.common.SSLContextFactory
 import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.HttpResponse
 import akka.pki.pem.DERPrivateKeyLoader
