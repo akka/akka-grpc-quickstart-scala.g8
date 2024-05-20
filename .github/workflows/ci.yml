@@ -37,7 +37,7 @@ jobs:
 
       - name: sbt 2.13 test
         run: |-
-	  sbt new file://$PWD --name=hello-world213 --scala_version=2.13.14 --force && pushd hello-world213 &&  sbt test
+          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.14 --force && pushd hello-world213 &&  sbt test
 
       - name: sbt Scala 3
         run: |-
