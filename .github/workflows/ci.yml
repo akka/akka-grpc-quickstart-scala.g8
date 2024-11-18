@@ -37,11 +37,11 @@ jobs:
 
       - name: sbt 2.13 test
         run: |-
-          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.14 --force && pushd hello-world213 &&  sbt test
+          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.15 --force && pushd hello-world213 &&  sbt test
 
       - name: sbt Scala 3
         run: |-
-          sbt new file://$PWD --name=hello-world3 --scala_version=3.3.3 --force && pushd hello-world3 &&  sbt test
+          sbt new file://$PWD --name=hello-world3 --scala_version=3.3.4 --force && pushd hello-world3 &&  sbt test
 
       - name: Email on failure
         if: ${{ failure() }}
