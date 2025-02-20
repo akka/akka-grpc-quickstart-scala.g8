@@ -25,8 +25,8 @@ jobs:
 
       - name: Set up JDK 17
         # https://github.com/coursier/setup-action/releases
-        # v1.3.5
-        uses: coursier/setup-action@7bde40eee928896f074dbb76d22dd772eed5c65f
+        # v1.3.9
+        uses: coursier/setup-action@039f736548afa5411c1382f40a5bd9c2d30e0383
         with:
           jvm: temurin:1.17
 
