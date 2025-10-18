@@ -8,6 +8,13 @@ This example is described in the [Akka gRPC Quickstart with Scala guide](https:/
 
 The Hello World example illustrates Akka gRPC basics. Within 30 minutes, you should be able to download and run the example and use this guide to understand how the example is constructed.
 
+## Build Token
+
+To build locally, you need to fetch a token at https://account.akka.io/token that you have to place into `~/.sbt/1.0/akka-commercial.sbt` file like this:
+```
+ThisBuild / resolvers += "lightbend-akka".at("your token resolver here")
+```
+
 ## Giter8 template
 
 It can also be used as a [Giter8][g8] template for Akka with Scala.
