@@ -23,12 +23,12 @@ jobs:
         # v4.1.1
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
 
-      - name: Set up JDK 17
+      - name: Set up JDK 25
         # https://github.com/coursier/setup-action/releases
         # v1.3.5
         uses: coursier/setup-action@7bde40eee928896f074dbb76d22dd772eed5c65f
         with:
-          jvm: temurin:1.17
+          jvm: temurin:1.25
 
       - name: Cache Coursier cache
         # https://github.com/coursier/cache-action/releases
@@ -37,11 +37,11 @@ jobs:
 
       - name: sbt 2.13 test
         run: |-
-          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.15 --force && pushd hello-world213 &&  sbt test
+          sbt new file://$PWD --name=hello-world213 --scala_version=2.13.17 --force && pushd hello-world213 &&  sbt test
 
       - name: sbt Scala 3
         run: |-
-          sbt new file://$PWD --name=hello-world3 --scala_version=3.3.4 --force && pushd hello-world3 &&  sbt test
+          sbt new file://$PWD --name=hello-world3 --scala_version=3.3.7 --force && pushd hello-world3 &&  sbt test
 
       - name: Email on failure
         if: ${{ failure() }}
